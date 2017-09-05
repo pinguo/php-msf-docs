@@ -2,7 +2,7 @@
 
 PHP微服务框架开发手册，即Micro Service Framework For PHP Develop Manual，PHP微服务框架即[“Micro Service Framework For PHP”](https://github.com/pinguo/php-msf)，是Camera360社区服务器端团队基于Swoole自主研发的现代化的PHP服务框架，简称msf或者php-msf，它的核心设计思想是采用协程、异步、并行的创新技术手段提高系统的单机吞吐能力，降低整体服务器成本。
 
-本手册从介绍异步、并行、协程等基础概念出发，再到[PHP-MSF](https://github.com/pinguo/php-msf)框架如何使用，其中也介绍了部分内部实现的原理，简单易上手。通过学习本手册，再结合我们的demo示例项目，就能够[PHP-MSF](https://github.com/pinguo/php-msf)构建大规模高性能的微服务化分布式系统。
+本手册从介绍异步、并行、协程等基础概念出发，再到[PHP-MSF](https://github.com/pinguo/php-msf)框架如何使用，其中也介绍了部分内部实现的原理，简单易上手。通过学习本手册，再结合我们的demo示例项目，就能够使用[PHP-MSF](https://github.com/pinguo/php-msf)构建大规模高性能的微服务化分布式系统。
 
 **开发手册电子书**：[https://pinguo.gitbooks.io/php-msf-docs/](https://pinguo.gitbooks.io/php-msf-docs/)
 
