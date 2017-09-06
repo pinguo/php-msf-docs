@@ -4,8 +4,6 @@ PHP微服务框架开发手册，即Micro Service Framework For PHP Develop Manu
 
 本手册从介绍异步、并行、协程等基础概念出发，再到[PHP-MSF](https://github.com/pinguo/php-msf)框架如何使用，其中也介绍了部分内部实现的原理，简单易上手。通过学习本手册，再结合我们的demo示例项目，就能够使用[PHP-MSF](https://github.com/pinguo/php-msf)构建大规模高性能的微服务化分布式系统。
 
-**开发手册电子书**：[https://pinguo.gitbooks.io/php-msf-docs/](https://pinguo.gitbooks.io/php-msf-docs/)
-
 ```bash
       _______                               ____
 ________  / /_  ____        ____ ___  _____/ __/
