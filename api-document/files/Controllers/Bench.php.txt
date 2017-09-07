@@ -27,6 +27,8 @@ class Bench extends Controller
 
     public function actionRedisPoolGet()
     {
+        $val = $this->getRedisPool('bench')->get('bench_set');
+        $this->getContext()->getOutput()->end($val);
     }
 
     public function actionRedisGetCallBack()
@@ -61,6 +63,8 @@ class Bench extends Controller
 
     public function actionHttpCoroutine()
     {
+        $data = $this->getObject(Client::class)->goSingleGet('http://127.0.0.1/');
+        $this->getContext()->getOutput()->end($data['body']);
     }
 }
 

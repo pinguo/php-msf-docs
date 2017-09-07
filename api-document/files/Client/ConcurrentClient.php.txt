@@ -77,7 +77,7 @@ class ConcurrentClient
              */
             //dns结果
             if ($item['dns'] instanceof DNS) {
-                $item['dns'] = yield $item['dns'];
+                $item['dns'] = $item['dns'];
                 if (!$item['dns']) {
                     $parent->getContext()->getLog()->error('DNS lookup for ' . $item['host'] . ' Failed');
                     $result[$name] = false;
@@ -95,7 +95,7 @@ class ConcurrentClient
         }
 
         foreach ($list as $name => $item) {
-            $response = yield $item['http'];
+            $response = $item['http'];
 
             $request = ['host' => $item['host'], 'api' => $item['api'], 'method' => $item['method'], 'params' => $item['params']];
 
@@ -173,3 +173,4 @@ class ConcurrentClient
         return array_key_exists($error, static::$jsonErrors) ? static::$jsonErrors[$error] : "Unknown error ({$error})";
     }
 }
+

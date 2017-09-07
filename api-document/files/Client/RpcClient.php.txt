@@ -3,13 +3,13 @@
  * RPC客户端
  *
  * 请求单个RPC服务
- * $user  = yield $this->getObject(RpcClient::class, ['user'])->handler('mobile', $construct)->getByUid($uid);
+ * $user  = $this->getObject(RpcClient::class, ['user'])->handler('mobile', $construct)->getByUid($uid);
  *
  * 批量请求多个RPC服务
  * $rpc[] = $this->getObject(RpcClient::class, ['user'])->handler('mobile', $construct)->func('getByUid', $uid);
  * $rpc[] = $this->getObject(RpcClient::class, ['user'])->handler('mobile', $construct)->func('getByName', $name);
  * $rpc[] = $this->getObject(RpcClient::class, ['user'])->handler('mobile', $construct)->func('getByEmail', $email);
- * $users = yield RpcClient::goConcurrent($rpc);
+ * $users = RpcClient::goConcurrent($rpc);
  *
  * @author camera360_server@camera360.com
  * @copyright Chengdu pinguo Technology Co.,Ltd.
@@ -176,7 +176,7 @@ class RpcClient extends Core
     {
         $this->method = $method;
         $this->args   = $args;
-        $response     = yield $this->remoteHttpCall($method, $args);
+        $response     = $this->remoteHttpCall($method, $args);
 
         return $response;
     }
@@ -209,24 +209,24 @@ class RpcClient extends Core
         /**
          * @var Client $client
          */
-        $client = yield $this->getObject(Client::class)->goDnsLookup($this->host, $this->timeout, $headers);
+        $client = $this->getObject(Client::class)->goDnsLookup($this->host, $this->timeout, $headers);
         if (!$client) {
             throw new Exception($this->host . ' dns query failed');
         }
 
         $urlPath = '/' .$this->urlPath . '/' . $this->service . '/' . $this->handler . '/' . $this->method;
         if ($this->verb == 'POST') {
-            $response = yield $client->goPost($urlPath, $sendData, $this->timeout);
+            $response = $client->goPost($urlPath, $sendData, $this->timeout);
         } else {
-            $response = yield $client->goGet($urlPath, $sendData, $this->timeout);
+            $response = $client->goGet($urlPath, $sendData, $this->timeout);
         }
 
         if ($response && !empty($response['body']) && ($jsonRes = json_decode($response['body'], true))) {
-            if ($jsonRes['status'] !== 200) {
+            if ($response['statusCode'] !== 200) {
                 $this->getContext()->getLog()->warning(dump($response, false, true));
                 return false;
             } else {
-                return $jsonRes['data'];
+                return $jsonRes;
             }
         } else {
             $this->getContext()->getLog()->warning(dump($response, false, true));
@@ -276,14 +276,14 @@ class RpcClient extends Core
             return $results;
         }
 
-        $responses = yield $context->getObject(Client::class)->goConcurrent($requests);
+        $responses = $context->getObject(Client::class)->goConcurrent($requests);
         foreach ($responses as $key => $response) {
             if ($response && !empty($response['body']) && ($jsonRes = json_decode($response['body'], true))) {
-                if ($jsonRes['status'] !== 200) {
+                if ($response['statusCode'] !== 200) {
                     $results[$key] = false;
                     $context->getContext()->getLog()->warning(dump($response, false, true));
                 } else {
-                    $results[$key] = $jsonRes['data'];
+                    $results[$key] = $jsonRes;
                 }
             } else {
                 $results[$key] = false;
@@ -294,3 +294,4 @@ class RpcClient extends Core
         return $results;
     }
 }
+

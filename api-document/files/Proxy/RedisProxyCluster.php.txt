@@ -206,7 +206,7 @@ class RedisProxyCluster extends Flexihash implements IProxy
         }
 
         foreach ($ret as $k => $item) {
-            $ret[$k] = yield $item;
+            $ret[$k] = $item;
         }
 
         return $ret;
@@ -301,7 +301,7 @@ class RedisProxyCluster extends Flexihash implements IProxy
             $opData = $this->dispatch($opArr, $method, $arguments);
 
             foreach ($opData as $op) {
-                $result = yield $op;
+                $result = $op;
                 if ($result !== 'OK') {
                     return false;
                 }
@@ -319,7 +319,7 @@ class RedisProxyCluster extends Flexihash implements IProxy
 
             foreach ($opData as $redisPoolName => $op) {
                 $keys = $opArr[$redisPoolName];
-                $values = yield $op;
+                $values = $op;
                 if (is_array($values)) { //$values有可能超时返回false
                     $retData = array_merge($retData, array_combine($keys, $values));
                 }
@@ -393,3 +393,4 @@ class RedisProxyCluster extends Flexihash implements IProxy
         return true;
     }
 }
+

@@ -226,7 +226,7 @@ class Task
         if ($value != '') {
             $logValue = '';
             dumpInternal($logValue, $value, 0, false);
-            $message = 'Yield ' . $logValue . ' message: ' . $e->getMessage();
+            $message = '' . $logValue . ' message: ' . $e->getMessage();
         } else {
             $message = 'message: ' . $e->getMessage();
         }

@@ -214,6 +214,10 @@ class Client extends Core
      */
     public function goPost($url = '', $data = [], $timeout = 30000, $headers = [])
     {
+        if (empty($data)) {
+            throw new Exception('post data is empty');
+        }
+
         if (!($this->client instanceof \swoole_http_client)) {
             throw new Exception('You must complete the DNS query first, Such as $client->goDnsLookup()');
         }
@@ -273,6 +277,10 @@ class Client extends Core
      */
     public function goSinglePost($url = '', $data = [], $timeout = 30000, $headers = [])
     {
+        if (empty($data)) {
+            throw new Exception('post data is empty');
+        }
+
         if (empty($this->urlData)) {
             $this->urlData = self::parseUrl($url);
         } else {
@@ -281,10 +289,10 @@ class Client extends Core
             }
         }
 
-        yield $this->goDnsLookup();
+        $this->goDnsLookup();
         $this->setHeaders($headers);
 
-        return yield $this->getObject(Http::class, [$this, 'POST', $this->urlData['path'], $data, $timeout]);
+        return $this->getObject(Http::class, [$this, 'POST', $this->urlData['path'], $data, $timeout]);
     }
 
     /**
@@ -307,10 +315,10 @@ class Client extends Core
             }
         }
 
-        yield $this->goDnsLookup();
+        $this->goDnsLookup();
         $this->setHeaders($headers);
 
-        return yield $this->getObject(Http::class, [$this, 'GET', $this->urlData['path'], $query, $timeout]);
+        return $this->getObject(Http::class, [$this, 'GET', $this->urlData['path'], $query, $timeout]);
     }
 
     /**
@@ -386,6 +394,11 @@ class Client extends Core
                         $this->getContext()->getLog()->error('$requests[' . $key . '] method field not valid, must be GET or POST, And Case Sensitive');
                         continue;
                     }
+
+                    if ($method == 'POST' && empty($request['data'])) {
+                        $this->getContext()->getLog()->error('$requests[' . $key . '] post data is empty');
+                        continue;
+                    }
                 }
 
                 if (!isset($request['timeout'])) {
@@ -429,7 +442,7 @@ class Client extends Core
                 continue;
             }
 
-            if (!yield $goDns) {
+            if (!$goDns) {
                 $this->getContext()->getLog()->error('DNS lookup for ' . $requests[$key]['url'] . ' Failed');
                 $result[$key] = false;
                 continue;
@@ -453,7 +466,7 @@ class Client extends Core
 
         // 获取HTTP请求结果
         foreach ($sendHttpRequests as $key => $httpRequest) {
-            $result[$key] = yield $httpRequest;
+            $result[$key] = $httpRequest;
         }
 
         return $result;
@@ -481,7 +494,7 @@ class Client extends Core
         ]);
 
         $this->setHeaders($headers);
-        ($this->urlData['callBack'])($this);
+//        ($this->urlData['callBack'])($this);
     }
 
     /**
@@ -625,3 +638,4 @@ class Client extends Core
         }
     }
 }
+
