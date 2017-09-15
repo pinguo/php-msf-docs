@@ -13,6 +13,12 @@ _/ .___/_/ /_/ .___/     /_/ /_/ /_/____/_/
 /_/         /_/         Camera360 Open Source TM
 ```
 
+# 交流与反馈
+
+PHP-MSF#1群(QQ): 614054288
+
+<img src="./images/QR.JPG" title="扫二维码加群" width="40%" />
+
 # 目录
 
 * [1 为什么要研发新的PHP框架](chapter-1/1.0-为什么要研发新的PHP框架.md)
