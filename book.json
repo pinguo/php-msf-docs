@@ -2,5 +2,8 @@
 	"structure": {
 		"summary": "README.md"
 	},
-	"language": "zh"
+	"language": "zh",
+	"plugins": [
+		"page-treeview"
+    ]
 }
