@@ -56,7 +56,8 @@ PHP-MSF#1群(QQ): 614054288
 	* [5.8 公共库](chapter-5/5.8-公共库.md)
 	* [5.9 RESTful](chapter-5/5.9-RESTful.md)
 	* [5.10 多语言](chapter-5/5.10-多语言.md)
-	* [5.11 小结](chapter-5/5.11-小结.md)
+	* [5.11 杂项](chapter-5/5.11-杂项.md)
+	* [5.12 小结](chapter-5/5.12-小结.md)
 * [6 常见问题](chapter-6/6.0-常见问题.md)
 * [7 附录](chapter-7/7.0-附录.md)
 
